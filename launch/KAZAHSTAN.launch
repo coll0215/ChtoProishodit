@@ -1,0 +1,5 @@
+<launch>
+
+<node name="poly" pkg="cringe_robot_package" type="polynominal.py" output="screen"/>
+<node name="summ" pkg="cringe_robot_package" type="summing.py" output="screen"/>  
+</launch>

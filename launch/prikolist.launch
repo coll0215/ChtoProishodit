@@ -1,0 +1,7 @@
+<launch>
+<group ns="new_cringename">
+    <node name="listener_cpp" pkg="roscpp_tutorials" type="listener" output="screen">
+    <remap from="chatter" to="$(arg new_topic_name)"/>
+    </node>
+    </group>
+</launch>

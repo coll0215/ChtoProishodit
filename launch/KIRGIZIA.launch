@@ -1,0 +1,10 @@
+<launch>
+<arg name="one_arg" default="1.0" />
+<arg name="anotherone_arg" default="1.0" />
+<arg name="andanotherone_arg" default="1.0" /> 
+<node name="req" pkg="cringe_robot_package" type="request.py" output="screen">
+    <param name="one" value="$(arg one_arg)" />
+    <param name="anotherone" value="$(arg anotherone_arg)" />
+    <param name="andanotherone" value="$(arg andanotherone_arg)" />
+</node> 
+</launch>
