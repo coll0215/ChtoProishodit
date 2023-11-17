@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-def main():
-    print(f"Hello ROS World!")
+import time
+a = 1
+while a==1:
+ from datetime import datetime
+ current_time = datetime.now()
+ print(current_time)
+ time.sleep(5)
 
-
-if __name__ == "__main__":
-    main()
