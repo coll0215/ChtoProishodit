@@ -14,11 +14,12 @@
     <rosparam file="$(find cringe_robot_package)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find cringe_robot_package)/config/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find cringe_robot_package)/config/move_base_params.yaml" command="load" />
-    <rosparam file="$(find cringe_robot_package)/config/dwa_local_planner_params_$(arg model).yaml" command="load" />
+    <!-- <rosparam file="$(find cringe_robot_package)/config/dwa_local_planner_params_$(arg model).yaml" command="load" /> -->
     <rosparam file="$(find cringe_robot_package)/config/global_planner_params.yaml" command="load" />
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
-    <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
+    <!-- <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" /> -->
   </node>
+  <node name="dynamic_reconfigure_load" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/TebLocalPlannerROS $(find cringe_robot_package)/config/abobaconfig.yaml" />
 </launch>
 
