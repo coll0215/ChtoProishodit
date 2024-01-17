@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="gmapping" type="slam_gmapping" name="gmapping">
+  <rosparam command="load" file="$(find cringe_robot_package)/config/gmapping_params.yaml" />
+  <param name="base_frame" value="base_footprint" />
+  </node>
+</launch>
+
+
