@@ -20,6 +20,8 @@
     <remap from="odom" to="$(arg odom_topic)"/>
     <!-- <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" /> -->
   </node>
-  <node name="dynamic_reconfigure_load" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/TebLocalPlannerROS $(find cringe_robot_package)/config/abobaconfig.yaml" />
+  <node name="dynamic_TEBconfig_load" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/TebLocalPlannerROS $(find cringe_robot_package)/config/abobaconfig.yaml" />
+  <node name="dynamic_local_costmap_inflation_config_load" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/local_costmap/inflation_layer $(find cringe_robot_package)/config/localinflationconfig.yaml" />
+  <node name="dynamic_global_costmap_inflation_config_load" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/global_costmap/inflation_layer $(find cringe_robot_package)/config/globalinflationconfig.yaml" />
 </launch>
 
