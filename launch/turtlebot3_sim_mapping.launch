@@ -1,11 +1,18 @@
 <launch>
   <arg name="rviz" default="false" />
-
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find cringe_robot_package)/config/map.yaml"/> 
+  <include file="$(find cringe_robot_package)/launch/amcl.launch">
+		<arg name="initial_pose_x" default="-3.0"/>
+		<arg name="initial_pose_y" default="1.0"/>
+		<arg name="initial_pose_a" default="0.0"/>
+	</include>
   <include file="$(find cringe_robot_package)/launch/turtlebot3_for_fun.launch" />
-  <include file="$(find cringe_robot_package)/launch/turtlebot3_my_gmapping.launch" />
+  <!-- <include file="$(find cringe_robot_package)/launch/turtlebot3_my_gmapping.launch" /> -->
   <include file="$(find cringe_robot_package)/launch/turtlebot3_move_base.launch" />
+  
 
-  <node if="$(arg rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cringe_robot_package)/rviz/sim_mapping.rviz" />    
+  <node if="$(arg rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cringe_robot_package)/rviz/sim_mapping.rviz" />   
+  
 </launch>
 
 
