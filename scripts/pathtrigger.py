@@ -20,7 +20,7 @@ def calculate_distance_traveled():
     
     pose_topic = "/move_base/feedback"
     goal_topic = "/move_base/goal"
-    rospy.init_node('calculate_distance_traveled', anonymous=True)
+    rospy.init_node('path_trigger', anonymous=True)
     pose_subscriber = rospy.Subscriber(pose_topic, MoveBaseActionFeedback, addPointToTotalDistance)
     goal_subscriber = rospy.Subscriber(goal_topic, MoveBaseActionGoal, getGoalPoint)
 
@@ -50,12 +50,12 @@ def addPointToTotalDistance(current_point):
 
         prev_x = x
         prev_y = y
-        print ("Current distance traveled= " + str(total_distance) + " meters" + " time passed= " + str(rospy.get_time()-starttime))
         if goal_point != []:
-            if distancePoints(x, y, goal_point.goal.target_pose.pose.position.x, goal_point.goal.target_pose.pose.position.y) <= 0.1:
+            if distancePoints(x, y, goal_point.goal.target_pose.pose.position.x, goal_point.goal.target_pose.pose.position.y) <= 3.0:
                 pose_subscriber.unregister()
-                print ("Total Distance = " + str(total_distance) + " meters" + " time passed= " + str(rospy.get_time()-starttime))
-                print ("Press Ctrl+C to exit.")
+                print ("New launch file opened")
+                os.system ("roslaunch cringe_robot_package newtebconfig.launch")
+               
 
 
 if __name__ == '__main__':

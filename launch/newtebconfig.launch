@@ -1,0 +1,3 @@
+<launch>
+  <node name="dynamic_TEBconfig_load_new" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/TebLocalPlannerROS $(find cringe_robot_package)/config/tebnewconfig.yaml" />
+</launch>
