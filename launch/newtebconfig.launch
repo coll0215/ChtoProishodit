@@ -1,3 +1,5 @@
 <launch>
-  <node name="dynamic_TEBconfig_load_new" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/TebLocalPlannerROS $(find cringe_robot_package)/config/tebnewconfig.yaml" />
+  <node name="dynamic_TEBconfig_load_new" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/TebLocalPlannerROS $(find cringe_robot_package)/config/tebnew.yaml" />
+  <node name="dynamic_local_costmap_inflation_config_load_new" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/local_costmap/inflation_layer $(find cringe_robot_package)/config/localnew.yaml" />
+  <node name="dynamic_global_costmap_inflation_config_load" pkg="dynamic_reconfigure" type="dynparam" args="load /move_base/global_costmap/inflation_layer $(find cringe_robot_package)/config/globalnew.yaml" />
 </launch>

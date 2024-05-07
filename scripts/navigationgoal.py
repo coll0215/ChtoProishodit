@@ -13,9 +13,11 @@ def movebase_client():
     goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = "map"
     goal.target_pose.header.stamp = rospy.Time.now()
-    goal.target_pose.pose.position.x = 1.0
-    goal.target_pose.pose.position.y = 2.0
-    goal.target_pose.pose.orientation.w = 1.0
+    goal.target_pose.pose.position.x = 3.948884
+    goal.target_pose.pose.position.y = 4.802725
+    goal.target_pose.pose.orientation.w = 0.01
+    
+    
 
 
     client.send_goal(goal)

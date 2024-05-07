@@ -51,7 +51,7 @@ def addPointToTotalDistance(current_point):
         prev_x = x
         prev_y = y
         if goal_point != []:
-            if distancePoints(x, y, goal_point.goal.target_pose.pose.position.x, goal_point.goal.target_pose.pose.position.y) <= 3.0:
+            if distancePoints(x, y, goal_point.goal.target_pose.pose.position.x, goal_point.goal.target_pose.pose.position.y) <= 1.6:
                 pose_subscriber.unregister()
                 print ("New launch file opened")
                 os.system ("roslaunch cringe_robot_package newtebconfig.launch")
