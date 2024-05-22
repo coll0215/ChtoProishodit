@@ -4,6 +4,7 @@ import os
 import roslib, rospy
 from move_base_msgs.msg import MoveBaseActionGoal
 from move_base_msgs.msg import MoveBaseActionFeedback
+from actionlib_msgs.msg import GoalID
       
 pose_subscriber = None
 goal_subscriber = None
@@ -13,7 +14,8 @@ prev_y = 0.0
 goal_point = []
 first_time = True
 starttime = None
-
+cancel_pub = rospy.Publisher("/move_base/cancel", GoalID, queue_size=1)
+cancel_msg = GoalID()
 
 def calculate_distance_traveled():
     global pose_subscriber
@@ -51,7 +53,7 @@ def addPointToTotalDistance(current_point):
         prev_x = x
         prev_y = y
         if goal_point != []:
-            if distancePoints(x, y, goal_point.goal.target_pose.pose.position.x, goal_point.goal.target_pose.pose.position.y) <= 1.6:
+            if distancePoints(x, y, goal_point.goal.target_pose.pose.position.x, goal_point.goal.target_pose.pose.position.y) <= 2.0:
                 pose_subscriber.unregister()
                 print ("New launch file opened")
                 os.system ("roslaunch cringe_robot_package newtebconfig.launch")

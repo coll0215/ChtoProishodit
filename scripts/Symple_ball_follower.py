@@ -19,6 +19,7 @@ class TakePhoto:
 
         self.cx=0
         self.cy=0
+        self.area=0
 
         self.bridge = CvBridge()
         self.image_received = False
@@ -45,7 +46,7 @@ class TakePhoto:
         self.move_to_object()
 
     def show_image(self,img):
-        cv2.imshow("Image Window", img)
+        
         cv2.waitKey(3)
         
 
@@ -57,13 +58,13 @@ class TakePhoto:
         low_H=0
         low_S=200
         low_V=50
-        high_H=180
+        high_H=0
         high_S=255
         high_V=255
 
 
         mask_frame=cv2.inRange(hsv_frame, (low_H, low_S, low_V), (high_H, high_S, high_V))
-        cv2.imshow("mask",mask_frame)
+        
         contours, hierarchy = cv2.findContours(mask_frame,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
         #_, contours, _= cv2.findContours(mask_frame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
@@ -71,22 +72,32 @@ class TakePhoto:
 
 
         for pic, contour in enumerate(contours):
-            area = cv2.contourArea(contour)
+            self.area = cv2.contourArea(contour)
             
-            if(area > 30):
+            if(self.area > 30):
                 
                 x, y, w, h = cv2.boundingRect(contour)
                 if(w*h>W*H):
                     X, Y, W, H= x, y, w, h
 
         img = cv2.rectangle(img, (X, Y),(X +W, Y + H),(0, 0, 255), 2)
-        self.cx =X
-        self.cy = Y
-
+        for i in contours:
+            M = cv2.moments(i)
+            if M['m00'] != 0:
+                centerx = int(M['m10']/M['m00'])
+                centery = int(M['m01']/M['m00'])
+                img = cv2.circle(img, (centerx, centery), 7, (0, 255, 0), 2)
+        
+            self.cx = centerx
+            self.cy = centery
+        self.cw = W
+        self.ch = H
+        
+    
 
         print(self.cx)
-        cv2.imshow("window", img)
-        cv2.waitKey(3)
+        print(self.area)
+        
 
     def move_to_object(self):
         
@@ -98,19 +109,25 @@ class TakePhoto:
         else:
         
             obj_x=self.cx-320
+            
 
-            if(obj_x<=30 and obj_x>=-30):
+            if(obj_x<=5 and obj_x>=-5 and self.area<190000):
                 text="straight"
                 self.rot.angular.z=0
-                self.rot.linear.x=0.2
-            elif(obj_x>30):
-                text="Left"
-                self.rot.angular.z=-0.1
-                self.rot.linear.x=0
-            elif(obj_x<-30):
+                self.rot.linear.x=0.1
+            elif(obj_x>5 and self.area<190000):
                 text="Right"
-                self.rot.angular.z=0.1
+                self.rot.angular.z=-0.05
                 self.rot.linear.x=0
+            elif(obj_x<-5 and self.area<190000):
+                text="Left"
+                self.rot.angular.z=0.05
+                self.rot.linear.x=0
+            elif(self.area>150000):
+                text="Stop"
+                self.rot.angular.z=0
+                self.rot.linear.x=0
+
 
         self.pub.publish(self.rot)
         print(text)
@@ -133,4 +150,3 @@ if __name__ == '__main__':
         rospy.spin()
 
     camera.stop
-
