@@ -97,7 +97,12 @@ class TakePhoto:
 
         print(self.cx)
         print(self.area)
+<<<<<<< HEAD
         
+=======
+        cv2.imshow("window", img)
+        cv2.waitKey(3)
+>>>>>>> b33ed8b36aab4e31aef328bcedd6990ed04de73d
 
     def move_to_object(self):
         
@@ -111,6 +116,7 @@ class TakePhoto:
             obj_x=self.cx-320
             
 
+<<<<<<< HEAD
             if(obj_x<=5 and obj_x>=-5 and self.area<190000):
                 text="straight"
                 self.rot.angular.z=0
@@ -120,6 +126,17 @@ class TakePhoto:
                 self.rot.angular.z=-0.05
                 self.rot.linear.x=0
             elif(obj_x<-5 and self.area<190000):
+=======
+            if(obj_x<=5 and obj_x>=-5 and self.area<150000):
+                text="straight"
+                self.rot.angular.z=0
+                self.rot.linear.x=0.2
+            elif(obj_x>5 and self.area<150000):
+                text="Right"
+                self.rot.angular.z=-0.05
+                self.rot.linear.x=0
+            elif(obj_x<-5 and self.area<150000):
+>>>>>>> b33ed8b36aab4e31aef328bcedd6990ed04de73d
                 text="Left"
                 self.rot.angular.z=0.05
                 self.rot.linear.x=0
